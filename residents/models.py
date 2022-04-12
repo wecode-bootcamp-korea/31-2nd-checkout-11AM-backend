@@ -58,20 +58,22 @@ class Room(models.Model):
     max_person  = models.IntegerField()
     bedspace    = models.IntegerField()
     residence   = models.ForeignKey(Residence, on_delete=models.CASCADE, related_name='rooms')
+    features    = models.ManyToManyField('Feature', through='RoomFeature', related_name='rooms')
+    amenities   = models.ManyToManyField('Amenity', through='RoomAmenity', related_name='rooms')
 
     class Meta: 
         db_table = 'rooms'
 
 class RoomFeature(models.Model):
-    room      = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='room_features')
-    residence = models.ForeignKey(Residence, on_delete=models.CASCADE, related_name='room_features')
+    room    = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='room_features')
+    feature = models.ForeignKey(Feature, on_delete=models.CASCADE, related_name='room_features')
     
     class Meta:
         db_table = 'room_features'
         
 class RoomAmenity(models.Model):
-    room      = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='room_amenities')
-    residence = models.ForeignKey(Residence, on_delete=models.CASCADE, related_name='room_amenities')
+    room    = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='room_amenities')
+    amenity = models.ForeignKey(Amenity, on_delete=models.CASCADE, related_name='room_amenities')
     
     class Meta:
         db_table = 'room_amenities'
