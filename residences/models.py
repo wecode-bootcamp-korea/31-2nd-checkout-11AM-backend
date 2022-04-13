@@ -22,6 +22,7 @@ class Residence(TimeStamp):
     category     = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='residences')
     description  = models.TextField()
     thumbnail    = models.CharField(max_length=200)
+    address      = models.CharField(max_length=200, default='')
     latitude     = models.DecimalField(max_digits=11, decimal_places=8)
     longitude    = models.DecimalField(max_digits=11, decimal_places=8)
     phone_number = models.CharField(max_length=50)
