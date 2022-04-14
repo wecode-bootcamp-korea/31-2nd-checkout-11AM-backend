@@ -9,6 +9,7 @@ from django.conf  import settings
 from users.models import User
 
 class GetUserInfoView(View):
+    
     def request_access_token(self, auth_code):
         try:
             kakao_auth_url = 'https://kauth.kakao.com/oauth/token'
