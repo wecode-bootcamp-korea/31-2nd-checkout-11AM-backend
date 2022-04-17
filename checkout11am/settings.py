@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 
-from my_settings import DATABASES, SECRET_KEY, ALGORITHM, REST_API_KEY
+from my_settings import DATABASES, SECRET_KEY, ALGORITHM, KAKAO_REST_API_KEY
 
 import pymysql
 
