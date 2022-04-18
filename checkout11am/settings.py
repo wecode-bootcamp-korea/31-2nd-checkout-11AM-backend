@@ -1,14 +1,12 @@
 from pathlib import Path
-
-from my_settings import DATABASES, SECRET_KEY, ALGORITHM
-
 import pymysql
+from my_settings import DATABASES, SECRET_KEY, ALGORITHM, KAKAO_REST_API_KEY
 
 pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+KAKAO_REST_API_KEY = KAKAO_REST_API_KEY
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
