@@ -1,7 +1,19 @@
 from django.db import models
 
+from enum import Enum
+
 from utilities.timestamp import TimeStamp
 
+class RegionEnum(Enum):
+    제주시   = 1
+    서부    = 2
+    서귀포시 = 3
+    동부    = 4
+    
+    @classmethod
+    def get_regions(cls):
+        return [region.name for region in cls]
+    
 class Region(models.Model): 
     title = models.CharField(max_length=50)
 
