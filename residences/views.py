@@ -5,10 +5,10 @@ from django.views import View
 class ResidenceDetailView(View) :
     def get(self, request, residence_name) :
         try :
-
-            Residence.objects.prefetch_related('room','place','residenceimage').filter(name = residence_name)
+               
+            Residence.objects.prefetch_related('rooms','places','residence_images').filter(name = residence_name)
             residences = Residence.objects.get(name = residence_name)
-        
+           
             residence_info = {
         
                 'residence_id'              : residences.id,
@@ -55,13 +55,14 @@ class RoomDetailView(View) :
             room_id = request.GET["room_id"]
             
             Residence.objects.prefetch_related('room').filter(name = residence_name)
-            
-            residence        = Residence.objects.get(name = residence_name)
-            chosen_room      = Room.objects.get(id = room_id)
+            Room.objects.prefetch_related('room_amenities', 'room_features')
+                  
+            chosen_residence        = Residence.objects.get(name = residence_name)
+            chosen_room             = Room.objects.get(id = room_id)
 
             room_info = {
                 'id'               : chosen_room.id,
-                'residence_name'   : residence.name,
+                'residence_name'   : chosen_residence.name,
                 'name'             : chosen_room.name,
                 'price'            : chosen_room.price,
                 'room_images'      : [value.image_url for value in chosen_room.room_images.all()],
@@ -70,8 +71,8 @@ class RoomDetailView(View) :
                 'max_person'       : chosen_room.max_person,
                 'area'             : chosen_room.area,
                 'bed'              : chosen_room.bedspace,
-                'feature'          : [value.feature.name for value in chosen_room.room_features.all()],
-                'amenities'        : [value.amenity.name for value in chosen_room.room_amenities.all()]
+                'feature'          : [feature.feature.name for feature in chosen_room.room_features.all()],
+                'amenities'        : [amenity.amenity.name for amenity in chosen_room.room_amenities.all()]
                 }
                          
             return JsonResponse({'result' : room_info }, status =200)
